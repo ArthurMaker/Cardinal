@@ -1,0 +1,32 @@
+name: Cardinal
+version: Alpha_1.4.1
+
+main: de.Syranda.RPG.Plugin.Main
+
+commands:
+   addarea:
+      description: Command!
+   selectarea:
+      description: Command!
+   addtag:
+      description: Command!
+   stats:
+      description: Command!
+   addwarp:
+      description: Command!
+   warp:
+      description: Command!
+   removetag:
+      description: Command!
+   item:
+      description: Command!
+   statsfor:
+      description: Command!
+   playerstats:
+      description: Command!
+   arena:
+      description: Command!
+   duel:
+      description: Command!
+   changelog:
+      description: Command!
