@@ -51,7 +51,7 @@ public class ItemClickListener implements Listener{
 					if(duel.getArena().isInArea(ps.getLocation()) && (ps != duel.getPlayerOne().getPlayer() || ps != duel.getPlayerTwo().getPlayer())) {
 						
 						ps.teleport(duel.getSpectatorLocation());
-						ps.sendMessage("§6[RPG] §7You were teleport due to a duel progressing in your former location!");
+						ps.sendMessage("§7You were teleport due to a duel progressing in your former location!");
 						
 					}
 					

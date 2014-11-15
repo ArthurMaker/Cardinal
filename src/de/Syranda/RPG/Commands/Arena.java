@@ -19,7 +19,7 @@ public class Arena {
 		
 		Player p = (Player) sender;
 		
-		if(!p.hasPermission("DEV")) {
+		if(!p.hasPermission("Cardinal.Dev")) {
 			
 			p.sendMessage("§cThis Command is under development.");
 			return true;
@@ -32,7 +32,7 @@ public class Arena {
 			return true;
 		}
 		
-		p.sendMessage("§6[RPG] §7Following arenas are available:");
+		p.sendMessage("§7Following arenas are available:");
 		
 		for(Area a:c.areas) {
 			

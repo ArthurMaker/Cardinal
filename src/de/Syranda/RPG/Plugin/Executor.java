@@ -8,7 +8,6 @@ import de.Syranda.RPG.Commands.AddArea;
 import de.Syranda.RPG.Commands.AddTag;
 import de.Syranda.RPG.Commands.AddWarp;
 import de.Syranda.RPG.Commands.Arena;
-import de.Syranda.RPG.Commands.Changelog;
 import de.Syranda.RPG.Commands.Duel;
 import de.Syranda.RPG.Commands.GiveItem;
 import de.Syranda.RPG.Commands.PlayerStats;
@@ -37,7 +36,6 @@ public class Executor implements CommandExecutor{
 		c.getCommand("playerstats").setExecutor(this);
 		c.getCommand("arena").setExecutor(this);
 		c.getCommand("duel").setExecutor(this);
-		c.getCommand("changelog").setExecutor(this);
 		
 	}
 	
@@ -67,8 +65,6 @@ public class Executor implements CommandExecutor{
 		if(label.equalsIgnoreCase("arena")) return new Arena().execute(sender, args, c);
 		
 		if(label.equalsIgnoreCase("duel")) return new Duel().execute(sender, args, c);
-		
-		if(label.equalsIgnoreCase("changelog")) return new Changelog().execute(sender, args, c);
 		
 		return false;
 	}

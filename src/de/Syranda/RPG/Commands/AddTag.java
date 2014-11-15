@@ -22,7 +22,7 @@ public class AddTag {
 		
 		Player p = (Player) sender;
 		
-		if(!p.hasPermission("RPG.AddTag")) {
+		if(!p.hasPermission("Cardinal.AddTag")) {
 			
 			p.sendMessage("§cYou don't have permission th execute this Command!");
 			return true;
@@ -67,13 +67,12 @@ public class AddTag {
 		try {
 			c.ar.aCon.save(c.ar.areaFile);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
 		c.selectedArea.get(p).addTag(args[0]);
 		
-		p.sendMessage("§6[RPG] §7Added tag §a" + args[0] + " §7to area §a" + c.selectedArea.get(p).getName() + " §7.");
+		p.sendMessage("§7Added tag §a" + args[0] + " §7to area §a" + c.selectedArea.get(p).getName() + " §7.");
 		
 		return true;
 		

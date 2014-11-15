@@ -19,7 +19,7 @@ public class Statsfor {
 		
 		Player p = (Player) sender;
 		
-		if(!p.hasPermission("RPG.Statsfor")) {
+		if(!p.hasPermission("Cardinal.Statsfor")) {
 			
 			p.sendMessage("§cYou don't have permission to use this command!");
 			return true;

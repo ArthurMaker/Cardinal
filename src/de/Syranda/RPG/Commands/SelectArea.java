@@ -19,7 +19,7 @@ public class SelectArea {
 		
 		Player p = (Player) sender;
 		
-		if(!p.hasPermission("RPG.Selectarea")) {
+		if(!p.hasPermission("Cardinal.Selectarea")) {
 			
 			p.sendMessage("§cYou don't have permission th execute this Command!");
 			return true;
@@ -51,7 +51,7 @@ public class SelectArea {
 		
 		c.selectedArea.put(p, a);
 		
-		p.sendMessage("§6[RPG] §7Area §a" + args[0] + " §7selected.");
+		p.sendMessage("§7Area §a" + args[0] + " §7selected.");
 		
 		return true;
 		

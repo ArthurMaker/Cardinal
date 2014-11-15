@@ -60,7 +60,7 @@ public class EntitySpawnListener implements Listener{
 			
 		if(spawnArea == null) {
 			
-			System.out.println("FATAL ERROR (PLUGIN ERROR) : PLEASE DELETE PLUGIN 'RPG' !");
+			System.out.println("FATAL ERROR (PLUGIN ERROR) : PLEASE DELETE PLUGIN 'CARDINAL' !");
 			return;
 			
 		}

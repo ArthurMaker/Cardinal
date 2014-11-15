@@ -32,8 +32,8 @@ public class PlayerDeathListener implements Listener{
 		
 			RPlayer rpp = c.rPlayer.get(event.getEntity().getKiller().getUniqueId().toString());
 			
-			c.duel.get(rp).getPlayerOne().getPlayer().sendMessage("§6[RPG] " + event.getEntity().getKiller().getName() + " §7won the duel");
-			c.duel.get(rp).getPlayerTwo().getPlayer().sendMessage("§6[RPG] " + event.getEntity().getKiller().getName() + " §7won the duel");
+			c.duel.get(rp).getPlayerOne().getPlayer().sendMessage("§6" + event.getEntity().getKiller().getName() + " §7won the duel");
+			c.duel.get(rp).getPlayerTwo().getPlayer().sendMessage("§6 " + event.getEntity().getKiller().getName() + " §7won the duel");
 			c.duel.get(rp).getPlayerOne().setDuel(false);
 			c.duel.get(rp).getPlayerTwo().setDuel(false);
 			rp.getPlayer().teleport(c.duel.get(rp).getSpectatorLocation());

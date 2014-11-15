@@ -2,18 +2,14 @@ package de.Syranda.RPG.CustomClasses;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import net.minecraft.server.v1_7_R4.ChatSerializer;
 import net.minecraft.server.v1_7_R4.IChatBaseComponent;
 
 import org.bukkit.Bukkit;
-import org.bukkit.Material;
 import org.bukkit.craftbukkit.v1_7_R4.entity.CraftPlayer;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 import org.spigotmc.ProtocolInjector.PacketTabHeader;
 
 import com.mysql.jdbc.PreparedStatement;
@@ -246,21 +242,13 @@ public class RPlayer {
 	
 	public void challange(RPlayer rp, Area arena) {
 		
-		ItemStack is1 = new ItemStack(Material.EMERALD_BLOCK);
-		ItemMeta im1 = is1.getItemMeta();
-		im1.setDisplayName("§aAccept");
-		im1.setLore(Arrays.asList(" ", "§7Enemy: §6" + rp.getPlayer().getName(), "§7Arena: §6" + arena.getName()));
-		is1.setItemMeta(im1);
-		
-		Main.challangeInv.setItem(0, is1);
-		
-		getPlayer().openInventory(Main.challangeInv);
+		getPlayer().openInventory(Main.setUpChallangeInv(rp.getPlayer().getName(), arena.getName()));
 		
 	}
 	
 	public void reloadTab() {
 		
-		IChatBaseComponent header = ChatSerializer.a("{\"text\":\"§6RPG §7v" + Bukkit.getPluginManager().getPlugin("RPG").getDescription().getVersion() + "\n\"}");
+		IChatBaseComponent header = ChatSerializer.a("{\"text\":\"§6Cardinal §7v" + Bukkit.getPluginManager().getPlugin("Cardinal").getDescription().getVersion() + "\n\"}");
 		IChatBaseComponent footer = ChatSerializer.a("{\"text\":\"\n§7Level: §6" + getStats().getLevel() + " §7| Exp: §6" + getStats().getExp() + "§7/§6" + getStats().getExpToLvl() + "\"}");
 		
 		PacketTabHeader packet = new PacketTabHeader(header, footer);

@@ -20,7 +20,7 @@ public class ServerListPingListener implements Listener{
 	@EventHandler
 	public void onEvent(ServerListPingEvent event) {
 		
-		if(!c.getServer().hasWhitelist()) event.setMotd("§6RPG §7v" + c.getDescription().getVersion() + "\n§7/changelog for changelog");
+		if(!c.getServer().hasWhitelist()) event.setMotd("§6Cardinal §7v" + c.getDescription().getVersion() + "\n§7Welcome");
 		else event.setMotd("§4Server maintenance\n§7We will be back soon");
 		
 	}

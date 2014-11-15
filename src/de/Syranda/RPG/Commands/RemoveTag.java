@@ -22,7 +22,7 @@ public class RemoveTag {
 		
 		Player p = (Player) sender;
 		
-		if(!p.hasPermission("RPG.Removetag")) {
+		if(!p.hasPermission("Cardinal.Removetag")) {
 			
 			p.sendMessage("§cYou don't have permission to use this command!");
 			return true;
@@ -67,13 +67,12 @@ public class RemoveTag {
 		try {
 			c.ar.aCon.save(c.ar.areaFile);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
 		c.selectedArea.get(p).removeTag(args[0]);
 		
-		p.sendMessage("§6[RPG] §7Removed tag §a" + args[0] + " §7from area §a" + c.selectedArea.get(p).getName() + " §7.");
+		p.sendMessage("§7Removed tag §a" + args[0] + " §7from area §a" + c.selectedArea.get(p).getName() + " §7.");
 		
 		return true;
 		

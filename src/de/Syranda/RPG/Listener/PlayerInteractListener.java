@@ -28,7 +28,7 @@ public class PlayerInteractListener implements Listener{
 				
 				event.setCancelled(true);
 				c.x1.put(event.getPlayer(), event.getClickedBlock().getLocation());
-				event.getPlayer().sendMessage("§6[RPG] §7Location 1 selected.");
+				event.getPlayer().sendMessage("§7Location §61§7 selected.");
 				
 			}
 			
@@ -40,7 +40,7 @@ public class PlayerInteractListener implements Listener{
 				
 				event.setCancelled(true);
 				c.x2.put(event.getPlayer(), event.getClickedBlock().getLocation());
-				event.getPlayer().sendMessage("§6[RPG] §7Location 2 selected.");
+				event.getPlayer().sendMessage("§7Location §62§7 selected.");
 				
 			}
 			

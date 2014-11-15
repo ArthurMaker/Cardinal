@@ -5,6 +5,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerRespawnEvent;
 
 import de.Syranda.RPG.CustomClasses.RPlayer;
+import de.Syranda.RPG.Plugin.Customizer;
 import de.Syranda.RPG.Plugin.Main;
 
 public class PlayerRespawnListener implements Listener{
@@ -21,7 +22,7 @@ public class PlayerRespawnListener implements Listener{
 	@EventHandler
 	public void onEvent(PlayerRespawnEvent event) {
 		
-		event.setRespawnLocation(c.warps.get("spawn"));
+		event.setRespawnLocation(c.warps.get(Customizer.StarterSpawn));
 		
 		RPlayer rp = c.rPlayer.get(event.getPlayer().getUniqueId().toString());
 		rp.calculateStats();

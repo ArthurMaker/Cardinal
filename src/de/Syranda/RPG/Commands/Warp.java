@@ -19,7 +19,7 @@ public class Warp {
 		
 		Player p = (Player) sender; 
 		
-		if(!p.hasPermission("RPG.Warp")) {
+		if(!p.hasPermission("Cardinal.Warp")) {
 			
 			p.sendMessage("§cYou don't have permission to use this command!");
 			return true;
@@ -44,7 +44,7 @@ public class Warp {
 		
 		p.teleport(l);
 		
-		p.sendMessage("§6[RPG] §7Warped to §a" + args[0] + "§7.");
+		p.sendMessage("§7Warped to §a" + args[0] + "§7.");
 		
 		return true;
 		

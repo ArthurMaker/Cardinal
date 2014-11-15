@@ -40,8 +40,8 @@ public class PlayerLeaveListener implements Listener{
 			if(event.getPlayer() == c.duel.get(rp).getPlayerOne().getPlayer()) rpp = c.duel.get(rp).getPlayerTwo();
 			else rpp = c.duel.get(rp).getPlayerOne();
 			
-			c.duel.get(rp).getPlayerOne().getPlayer().sendMessage("§6[RPG] " + rpp.getPlayer().getName() + " §7won the duel");
-			c.duel.get(rp).getPlayerTwo().getPlayer().sendMessage("§6[RPG] " + rpp.getPlayer().getName() + " §7won the duel");
+			c.duel.get(rp).getPlayerOne().getPlayer().sendMessage("§6" + rpp.getPlayer().getName() + " §7won the duel");
+			c.duel.get(rp).getPlayerTwo().getPlayer().sendMessage("§6" + rpp.getPlayer().getName() + " §7won the duel");
 			c.duel.get(rp).getPlayerOne().setDuel(false);
 			c.duel.get(rp).getPlayerTwo().setDuel(false);
 			

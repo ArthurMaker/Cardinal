@@ -22,7 +22,7 @@ public class AddArea {
 		
 		Player p = (Player) sender;
 		
-		if(!p.hasPermission("RPG.Addarea")) {
+		if(!p.hasPermission("Cardinal.Addarea")) {
 			
 			p.sendMessage("§cYou don't have permission th execute this Command!");
 			return true;
@@ -72,7 +72,7 @@ public class AddArea {
 		
 		c.areas.add(new Area(args[0], x1, x2));
 		
-		p.sendMessage("§6[RPG] §7Area §a" + args[0] + " §7was created.");
+		p.sendMessage("§7Area §a" + args[0] + " §7created.");
 		
 		return true;
 		

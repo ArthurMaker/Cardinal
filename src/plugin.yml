@@ -1,5 +1,5 @@
 name: Cardinal
-version: Alpha_1.4.1
+version: Alpha_1.4.2
 
 main: de.Syranda.RPG.Plugin.Main
 
@@ -27,6 +27,4 @@ commands:
    arena:
       description: Command!
    duel:
-      description: Command!
-   changelog:
       description: Command!

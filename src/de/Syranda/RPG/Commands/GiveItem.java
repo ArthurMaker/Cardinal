@@ -22,7 +22,7 @@ public class GiveItem {
 		
 		Player p = (Player) sender;
 		
-		if(!p.hasPermission("RPG.Item")) {
+		if(!p.hasPermission("Cardinal.Item")) {
 			
 			p.sendMessage("§cYou don't have permission to use this command!");
 			return true;
@@ -72,7 +72,7 @@ public class GiveItem {
 		}
 		
 		p.getInventory().addItem(is);
-		p.sendMessage("§6[RPG] §7Added item §a" + args[0] + " §7.");
+		p.sendMessage("§7Added item §a" + args[0] + " §7.");
 		
 		return true;
 		

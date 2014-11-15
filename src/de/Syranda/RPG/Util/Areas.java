@@ -23,7 +23,6 @@ public class Areas {
 		try {
 			load();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 

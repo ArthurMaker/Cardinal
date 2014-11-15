@@ -20,7 +20,7 @@ public class AddWarp {
 		
 		Player p = (Player) sender; 
 		
-		if(!p.hasPermission("RPG.Addwarp")) {
+		if(!p.hasPermission("Cardinal.Addwarp")) {
 			
 			p.sendMessage("§cYou don't have permission to use this command!");
 			return true;
@@ -38,7 +38,6 @@ public class AddWarp {
 			try {
 				c.w.warpFile.createNewFile();
 			} catch (IOException e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 		
@@ -53,11 +52,10 @@ public class AddWarp {
 		try {
 			c.w.w.save(c.w.warpFile);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
-		p.sendMessage("§6[RPG] §7Warp §a" + args[0] + " §7was created.");
+		p.sendMessage("§7Warp §a" + args[0] + " §7created.");
 		
 		return true;
 		

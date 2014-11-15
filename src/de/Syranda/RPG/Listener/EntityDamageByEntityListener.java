@@ -32,7 +32,6 @@ public class EntityDamageByEntityListener implements Listener{
 		if(event.getEntity() instanceof Villager) return;
 		
 		if(event.getEntity() == null || event.getDamager() == null) {
-			System.out.println("Pre debug NULL");
 			event.setCancelled(true);
 			return;			
 		}

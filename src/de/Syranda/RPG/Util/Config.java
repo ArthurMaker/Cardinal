@@ -22,7 +22,6 @@ public class Config {
 			load();
 			loadValues();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -41,10 +40,15 @@ public class Config {
 		con = YamlConfiguration.loadConfiguration(conFile);
 		
 		con.addDefault("MySQL.Host", "localhost");
-		con.addDefault("MySQL.Port", 3360);
+		con.addDefault("MySQL.Port", 3306);
 		con.addDefault("MySQL.Database", "database");
 		con.addDefault("MySQL.User", "root");
 		con.addDefault("MySQL.Pass", "123456");
+		con.addDefault("MySQL.TablePrefix", "Cardinal_");
+		
+		con.addDefault("Config.StarterSet", "starterset");
+		con.addDefault("Config.StarterSpawn", "spawn");
+		con.addDefault("Config.EditMode", true);
 		
 		con.options().copyDefaults(true);
 		con.save(conFile);
@@ -58,6 +62,11 @@ public class Config {
 		Customizer.database = con.getString("MySQL.Database");
 		Customizer.user = con.getString("MySQL.User");
 		Customizer.pass = con.getString("MySQL.Pass");
+		Customizer.TablePrefix = con.getString("MySQL.TablePrefix");
+		
+		Customizer.StarterSet = con.getString("Config.StarterSet");
+		Customizer.StarterSpawn = con.getString("Config.StarterSpawn");
+		Customizer.EditMode = con.getBoolean("Config.EditMode");
 		
 	}
 	

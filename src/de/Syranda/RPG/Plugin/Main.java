@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -55,7 +56,6 @@ import de.Syranda.RPG.Listener.PlayerExpGetListener;
 import de.Syranda.RPG.Listener.PlayerInteractListener;
 import de.Syranda.RPG.Listener.PlayerJoinListener;
 import de.Syranda.RPG.Listener.PlayerLeaveListener;
-import de.Syranda.RPG.Listener.PlayerLoginListener;
 import de.Syranda.RPG.Listener.PlayerMoveListener;
 import de.Syranda.RPG.Listener.PlayerRespawnListener;
 import de.Syranda.RPG.Listener.ServerListPingListener;
@@ -108,47 +108,22 @@ public class Main extends JavaPlugin{
 	//Duel system
 	public List<Area> usedArenas = new ArrayList<Area>();
 	public List<String> inDuell = new ArrayList<String>();	
-	public HashMap<RPlayer, DuelManager> duel = new HashMap<RPlayer, DuelManager>();	
-	public static Inventory challangeInv;
+	public HashMap<RPlayer, DuelManager> duel = new HashMap<RPlayer, DuelManager>();
 	
 	@SuppressWarnings("deprecation")
 	@Override
 	public void onEnable() {
 				
-		new Executor(this);
-		new PlayerInteractListener(this);
-		new PlayerMoveListener(this);
-		new PlayerJoinListener(this);
-		new AreaEnterListener(this);
-		new AreaLeaveListener(this);
-		new EntityDamageListener(this);
-		new EntityDamageByEntityListener(this);
 		new Config(this);
-		new EntitySpawnListener(this);
-		new EntityDeathListener(this);
-		new PlayerDeathListener(this);
-		new PlayerRespawnListener(this);
-		new PlayerExpGetListener(this);
-		new PlayerLeaveListener(this);
-		new BlockBreakListener(this);
-		new ChangeItemListener(this);
-		new ItemClickListener(this);
-		new InventoryCloseListener(this);
-		new ItemDurabilityChangeListener(this);
-		new ServerListPingListener(this);
-		new PlayerLoginListener(this);
-		new HealthRegenListener(this);
-		new HungerRegenListener(this);
-		new EntityExplodeListener(this);
 		ar = new Areas(this);
 		w = new Warps(this);
-		System.out.println("[RPG] Loaded " + areas.size() + " areas.");
+		System.out.println("[Cardinal] Loaded " + areas.size() + " areas.");
 		
 		try {
 			loadMySQL();
-			System.out.println("[RPG] Connected to MySQL-Server!");
+			System.out.println("[Cardinal] Connected to MySQL-Server!");
 		} catch (SQLException e) {
-			System.err.println("[RPG] Error connecting to MySQL-Server!");
+			System.err.println("[Cardinal] Error connecting to MySQL-Server!");
 		}
 		
 		showLevel();
@@ -163,7 +138,34 @@ public class Main extends JavaPlugin{
 			
 		}
 		
-		setUpChallangeInv();
+		new Executor(this);
+		new PlayerInteractListener(this);
+		
+		if(!Customizer.EditMode) {
+		
+			new PlayerMoveListener(this);
+			new PlayerJoinListener(this);
+			new AreaEnterListener(this);
+			new AreaLeaveListener(this);
+			new EntityDamageListener(this);
+			new EntityDamageByEntityListener(this);
+			new EntitySpawnListener(this);
+			new EntityDeathListener(this);
+			new PlayerDeathListener(this);
+			new PlayerRespawnListener(this);
+			new PlayerExpGetListener(this);
+			new PlayerLeaveListener(this);
+			new BlockBreakListener(this);
+			new ChangeItemListener(this);
+			new ItemClickListener(this);
+			new InventoryCloseListener(this);
+			new ItemDurabilityChangeListener(this);
+			new ServerListPingListener(this);
+			new HealthRegenListener(this);
+			new HungerRegenListener(this);
+			new EntityExplodeListener(this);
+			
+		}
 		
 	}
 	
@@ -191,40 +193,13 @@ public class Main extends JavaPlugin{
 			
 		}
 		
-		areas.clear();
-		rPlayer.clear();
-		rEntity.clear();
-		x1.clear();
-		x2.clear();
-		selectedArea.clear();
-		noDmg.clear();
-		sets.clear();
-		items.clear();
-		armor.clear();
-		weapons.clear();
-		ar = null;
-		try {
-			Main.conn.close();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		w = null;
-		
-		levels.clear();
-		warps.clear();
-		dRules.clear();
-		usedArenas.clear();
-		inDuell.clear();
-		duel.clear();
-		Main.challangeInv = null;
-		
 	}
 	
 	private void loadMySQL() throws SQLException {
 		
 		conn = (Connection) DriverManager.getConnection("jdbc:mysql://" + Customizer.host + ":" + Customizer.port + "/" + Customizer.database, Customizer.user, Customizer.pass);
 		
-		PreparedStatement ps = (PreparedStatement) conn.prepareStatement("CREATE TABLE IF NOT EXISTS `playerdata` (`id` INTEGER AUTO_INCREMENT, `uuid` varchar(100), `permbuffs` varchar(300), `isGM` BOOLEAN, `maxHealth` INTEGER, `maxStamina` INTEGER, `luk` INTEGER, `vit` INTEGER, `str` INTEGER, `armor` INTEGER, `level` INTEGER, `exp` INTEGER, `items` text, PRIMARY KEY(`id`))");
+		PreparedStatement ps = (PreparedStatement) conn.prepareStatement("CREATE TABLE IF NOT EXISTS `" + Customizer.TablePrefix + "playerdata` (`id` INTEGER AUTO_INCREMENT, `uuid` varchar(100), `permbuffs` varchar(300), `isGM` BOOLEAN, `maxHealth` INTEGER, `maxStamina` INTEGER, `luk` INTEGER, `vit` INTEGER, `str` INTEGER, `armor` INTEGER, `level` INTEGER, `exp` INTEGER, `items` text, PRIMARY KEY(`id`))");
 		ps.executeUpdate();
 		
 		Statement s = conn.createStatement();
@@ -239,34 +214,34 @@ public class Main extends JavaPlugin{
 		
 		if(rs == null) {
 			
-			PreparedStatement ps2 = (PreparedStatement) conn.prepareStatement("CREATE TABLE IF NOT EXISTS `leveldata` (`level` INTEGER AUTO_INCREMENT, `exp` Integer, PRIMARY KEY(`level`))");
+			PreparedStatement ps2 = (PreparedStatement) conn.prepareStatement("CREATE TABLE IF NOT EXISTS `" + Customizer.TablePrefix + "leveldata` (`level` INTEGER AUTO_INCREMENT, `exp` Integer, PRIMARY KEY(`level`))");
 			ps2.executeUpdate();
 			
 			for(int i = 1; i < 100; i++) {
 				
 				int exp = (int) (i*10+Math.pow(i, 3));
 				
-				PreparedStatement ps3 = (PreparedStatement) conn.prepareStatement("INSERT INTO `leveldata` (`exp`) VALUES (" + exp + ")");
+				PreparedStatement ps3 = (PreparedStatement) conn.prepareStatement("INSERT INTO `" + Customizer.TablePrefix + "leveldata` (`exp`) VALUES (" + exp + ")");
 				ps3.executeUpdate();
 				
 			}
 			
 		}
 		
-		PreparedStatement ps4 = (PreparedStatement) conn.prepareStatement("CREATE TABLE IF NOT EXISTS `sets` (`id` INTEGER AUTO_INCREMENT, `name` varchar(50), `ItemIDs` varchar(100), PRIMARY KEY(`id`))");
+		PreparedStatement ps4 = (PreparedStatement) conn.prepareStatement("CREATE TABLE IF NOT EXISTS `" + Customizer.TablePrefix + "sets` (`id` INTEGER AUTO_INCREMENT, `name` varchar(50), `ItemIDs` varchar(100), PRIMARY KEY(`id`))");
 		ps4.executeUpdate();
 		
-		PreparedStatement ps5 = (PreparedStatement) conn.prepareStatement("CREATE TABLE IF NOT EXISTS `items` (`id` INTEGER AUTO_INCREMENT, `name` varchar(50), `Item` varchar(100), `Displayname` varchar(100), `Lore` varchar(100), `RunID` INTEGER, PRIMARY KEY(`id`))");
+		PreparedStatement ps5 = (PreparedStatement) conn.prepareStatement("CREATE TABLE IF NOT EXISTS `" + Customizer.TablePrefix + "items` (`id` INTEGER AUTO_INCREMENT, `name` varchar(50), `Item` varchar(100), `Displayname` varchar(100), `Lore` varchar(100), `RunID` INTEGER, PRIMARY KEY(`id`))");
 		ps5.executeUpdate();
 		
-		PreparedStatement ps6 = (PreparedStatement) conn.prepareStatement("CREATE TABLE IF NOT EXISTS `weapons` (`id` INTEGER AUTO_INCREMENT, `luk` INTEGER, `vit` INTEGER, `str` INTEGER, `armor` INTEGER, `level` INTEGER, PRIMARY KEY(`id`))");
+		PreparedStatement ps6 = (PreparedStatement) conn.prepareStatement("CREATE TABLE IF NOT EXISTS `" + Customizer.TablePrefix + "weapons` (`id` INTEGER AUTO_INCREMENT, `luk` INTEGER, `vit` INTEGER, `str` INTEGER, `armor` INTEGER, `level` INTEGER, PRIMARY KEY(`id`))");
 		ps6.executeUpdate();
 		
-		PreparedStatement ps7 = (PreparedStatement) conn.prepareStatement("CREATE TABLE IF NOT EXISTS `armor` (`id` INTEGER AUTO_INCREMENT, `luk` INTEGER, `vit` INTEGER, `str` INTEGER, `armor` INTEGER, `level` INTEGER, PRIMARY KEY(`id`))");
+		PreparedStatement ps7 = (PreparedStatement) conn.prepareStatement("CREATE TABLE IF NOT EXISTS `" + Customizer.TablePrefix + "armor` (`id` INTEGER AUTO_INCREMENT, `luk` INTEGER, `vit` INTEGER, `str` INTEGER, `armor` INTEGER, `level` INTEGER, PRIMARY KEY(`id`))");
 		ps7.executeUpdate();
 		
 		Statement s2 = conn.createStatement();
-		ResultSet rs2 = s2.executeQuery("SELECT * FROM `items`");
+		ResultSet rs2 = s2.executeQuery("SELECT * FROM `" + Customizer.TablePrefix + "items`");
 		
 		while(rs2.next()) {
 			
@@ -290,10 +265,10 @@ public class Main extends JavaPlugin{
 			
 		}
 		
-		System.out.println("[RPG] " + items.size() + " items loaded!");
+		System.out.println("[Cardinal] Loaded " + items.size() + " items.");
 		
 		Statement s3 = conn.createStatement();
-		ResultSet rs3 = s3.executeQuery("SELECT * FROM `weapons`");
+		ResultSet rs3 = s3.executeQuery("SELECT * FROM `" + Customizer.TablePrefix + "weapons`");
 		
 		while(rs3.next()) {
 			
@@ -324,10 +299,10 @@ public class Main extends JavaPlugin{
 			
 		}
 		
-		System.out.println("[RPG] " + weapons.size() + " weapons loaded!");
+		System.out.println("[Cardinal] Loaded " + weapons.size() + " weapons.");
 		
 		Statement s4 = conn.createStatement();
-		ResultSet rs4 = s4.executeQuery("SELECT * FROM `armor`");
+		ResultSet rs4 = s4.executeQuery("SELECT * FROM `" + Customizer.TablePrefix + "armor`");
 		
 		while(rs4.next()) {
 			
@@ -358,10 +333,10 @@ public class Main extends JavaPlugin{
 			
 		}
 		
-		System.out.println("[RPG] " + armor.size() + " armors loaded!");
+		System.out.println("[Cardinal] Loaded " + armor.size() + " armors.");
 		
 		Statement s5 = conn.createStatement();
-		ResultSet rs5 = s5.executeQuery("SELECT * FROM `sets`");
+		ResultSet rs5 = s5.executeQuery("SELECT * FROM `" + Customizer.TablePrefix + "sets`");
 		
 		while(rs5.next()) {
 						
@@ -395,13 +370,13 @@ public class Main extends JavaPlugin{
 			
 		}
 		
-		System.out.println("[RPG] " + sets.size() + " sets loaded!");		
+		System.out.println("[Cardinal] Loaded " + sets.size() + " sets.");		
 		
-		PreparedStatement ps8 = (PreparedStatement) conn.prepareStatement("CREATE TABLE IF NOT EXISTS `drops` (`id` INTEGER AUTO_INCREMENT, `EntityType` varchar(30), `DropID` INTEGER, `levelCap` varchar(10), `chance` INTEGER, PRIMARY KEY(`id`))");
+		PreparedStatement ps8 = (PreparedStatement) conn.prepareStatement("CREATE TABLE IF NOT EXISTS `" + Customizer.TablePrefix + "drops` (`id` INTEGER AUTO_INCREMENT, `EntityType` varchar(30), `DropID` INTEGER, `levelCap` varchar(10), `chance` INTEGER, PRIMARY KEY(`id`))");
 		ps8.executeUpdate();
 		
 		Statement s6 = conn.createStatement();
-		ResultSet rs6 = s6.executeQuery("SELECT * FROM `drops`");
+		ResultSet rs6 = s6.executeQuery("SELECT * FROM `" + Customizer.TablePrefix + "drops`");
 		
 		while(rs6.next()) {
 					
@@ -500,7 +475,7 @@ public class Main extends JavaPlugin{
 		
 		if(!rs.next()) {
 			
-			PreparedStatement ps = (PreparedStatement) Main.conn.prepareStatement("INSERT INTO `playerdata` (`uuid`,`permBuffs`,`isGM`,`maxHealth`,`maxStamina`,`luk`,`vit`,`str`,`armor`,`level`,`exp`,`items`) VALUES ('" + p.getUniqueId() + "','',false,100,100,5,5,15,5,1,0,'1:2:3:4')");
+			PreparedStatement ps = (PreparedStatement) Main.conn.prepareStatement("INSERT INTO `" + Customizer.TablePrefix + "playerdata` (`uuid`,`permBuffs`,`isGM`,`maxHealth`,`maxStamina`,`luk`,`vit`,`str`,`armor`,`level`,`exp`,`items`) VALUES ('" + p.getUniqueId() + "','',false,100,100,5,5,15,5,1,0,'1:2:3:4')");
 			ps.executeUpdate();
 			
 			Statement s2 = Main.conn.createStatement();
@@ -520,7 +495,7 @@ public class Main extends JavaPlugin{
 			
 			for(Set set:sets) {
 				
-				if(set.getName().equalsIgnoreCase("starterset")) {
+				if(set.getName().equalsIgnoreCase(Customizer.StarterSet)) {
 					
 					for(ItemStack i:set.getItems()) {
 						
@@ -532,7 +507,7 @@ public class Main extends JavaPlugin{
 				
 			}
 			
-			p.teleport(warps.get("spawn"));
+			p.teleport(warps.get(Customizer.StarterSpawn));
 			
 			if(p.getInventory().getBoots() != null) {
 				
@@ -692,16 +667,26 @@ public class Main extends JavaPlugin{
 		}
 	}
 	
-	void setUpChallangeInv() {
+	public static Inventory setUpChallangeInv(String player, String arena) {
 		
-		Main.challangeInv = Bukkit.createInventory(null, 9, "§7Duel Request");
+		Inventory challangeInv = Bukkit.createInventory(null, 9, "§7Duel Request");
 		
 		ItemStack is2 = new ItemStack(Material.REDSTONE_BLOCK);
 		ItemMeta im2 = is2.getItemMeta();
 		im2.setDisplayName("§cDecline");
 		is2.setItemMeta(im2);
 		
-		Main.challangeInv.setItem(8, is2);
+		challangeInv.setItem(8, is2);
+		
+		ItemStack is1 = new ItemStack(Material.EMERALD_BLOCK);
+		ItemMeta im1 = is1.getItemMeta();
+		im1.setDisplayName("§aAccept");
+		im1.setLore(Arrays.asList(" ", "§7Enemy: §6" + player, "§7Arena: §6" + arena));
+		is1.setItemMeta(im1);
+		
+		challangeInv.setItem(0, is1);
+		
+		return challangeInv;
 		
 	}
 	

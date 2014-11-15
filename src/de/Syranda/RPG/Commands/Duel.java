@@ -23,7 +23,7 @@ public class Duel {
 		
 		Player p = (Player) sender;
 		
-		if(!p.hasPermission("DEV")) {
+		if(!p.hasPermission("Cardinal.Dev")) {
 			
 			p.sendMessage("§cThis Command is under development.");
 			return true;

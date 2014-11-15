@@ -28,7 +28,7 @@ public class ShowStats {
 			return true;
 		}
 		
-		if(!p.hasPermission("RPG.ViewStats") && args.length == 1) {
+		if(!p.hasPermission("Cardinal.ViewStats") && args.length == 1) {
 			
 			p.sendMessage("§cUsage: /stats");
 			return true;
